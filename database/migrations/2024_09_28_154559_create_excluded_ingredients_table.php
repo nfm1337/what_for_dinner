@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('excluded_ingredients', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('ingredient_id')->constrained()->onDelete('cascade');
+            $table->uuid('user_id');
+            $table->uuid('ingredient_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
             $table->timestamps();
         });
     }
